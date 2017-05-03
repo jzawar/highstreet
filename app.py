@@ -113,10 +113,10 @@ def makeWebhookResult(data, req):
     parameters = airesult.get("parameters")
     person = parameters.get('Person')
     city = parameters.get("geo-city")
-    returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
-    print(returnedSpeech)
-    #print("Response:")
-    #print(speech)
+    #returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
+    #print(returnedSpeech)
+    print("Response:")
+    print(speech)
 
     return {
         "speech": returnedSpeech,
