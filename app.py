@@ -114,14 +114,13 @@ def makeWebhookResult(data, req):
     person = parameters.get('Person')
     city = parameters.get("geo-city")
     returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
-	print("Response:")
-    print(returnedSpeech)
-    #print("Response:")
-    #print(speech)
+    #print(returnedSpeech)
+    print("Response:")
+    print(speech)
 
     return {
-        "speech": returnedSpeech,
-        "displayText": returnedSpeech,
+        "speech": Speech,
+        "displayText": Speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
