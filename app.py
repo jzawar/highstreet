@@ -115,7 +115,7 @@ def makeWebhookResult(data, req):
     city = parameters.get("geo-city")
     speech = suggestDeodrant(condition.get('text'), person, city)
     print(speech)
-    #print("Response:")
+    print("Response:")
     #print(speech)
 
     return {
