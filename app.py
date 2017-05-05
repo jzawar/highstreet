@@ -10,7 +10,6 @@ from urllib.error import HTTPError
 
 import json
 import os
-import re
 
 from flask import Flask
 from flask import request
@@ -35,26 +34,6 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-	
-def suggestDeodrant(condition, person, city):
-    print(person)
-    humidWeatherList = ['Cloudy','mostly cloudy (night)','mostly cloudy (day)','partly cloudy (night)','partlycloudy (day)','tornado','tropical storm','hurricane','severe thunderstorms','thunderstorms','mixed rain and snow','mixed rain and sleet','mixed snow and sleet','freezing drizzle','drizzle','freezing rain','Showers','snow flurries','light snow showers','blowing snow','snow','hail','sleet','mixed rain and hail','thundershowers','snow showers','isolated','thundershowers'];
-    hotWeatherList = ['dust','foggy','haze','smoky','blustery','windy','cold','clear (night)','sunny','fair (night)','fair (day)','hot','isolated thunderstorms','scattered thunderstorms','scattered thunderstorms','scattered showers','heavy snow','scattered snow showers','heavy snow','partly cloudy'];
-    if(condition in humidWeatherList):
-     print('humid')
-     men = 'Men'
-     if(person.lower()==men.lower()):
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
-     else:
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
-    else:
-     print('dry')
-     menv = 'Men'
-     if(person.lower()==menv.lower()):
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
-     else:
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
-    return condition
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
@@ -66,7 +45,7 @@ def processRequest(req):
     yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     result = urlopen(yql_url).read()
     data = json.loads(result)
-    res = makeWebhookResult(data,req)
+    res = makeWebhookResult(data)
     return res
 
 
@@ -80,7 +59,7 @@ def makeYqlQuery(req):
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-def makeWebhookResult(data, req):
+def makeWebhookResult(data):
     query = data.get('query')
     if query is None:
         return {}
@@ -105,24 +84,15 @@ def makeWebhookResult(data, req):
 
     # print(json.dumps(item, indent=4))
 
-    #speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-    #         ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-	
-    speech = "Hmmm.. It looks " + condition.get('text') + " in " + location.get('city')
-    #airesult = req.get("result")
-    #parameters = airesult.get("parameters")
-    #person = parameters.get('Person')
-    #city = parameters.get("geo-city")
-    #returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
-    #print(returnedSpeech)
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+
     print("Response:")
     print(speech)
 
     return {
-        #"speech": returnedSpeech,
-        #"displayText": returnedSpeech,
-		"speech": Speech,
-        "displayText": Speech,
+        "speech": speech,
+        "displayText": speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
