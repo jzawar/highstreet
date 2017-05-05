@@ -10,7 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
-import re
+
 
 from flask import Flask
 from flask import request
@@ -87,9 +87,7 @@ def makeWebhookResult(data,req):
 
     airesult = req.get("result")
     parameters = airesult.get("parameters")
-    
-
-	Speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') + ". I suggest these  for "+parameters.get("person")+". Are you making an air travel to " + location.get('city') +
+    speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') + ". I suggest these "+parameters.get("Category")+" for "+parameters.get("person")+". Are you making an air travel to " + location.get('city') +
     print("Response:")
     print(speech)
 
