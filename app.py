@@ -75,7 +75,7 @@ def makeWebhookResult(data,req):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
-	categoryResult = req.get("result")
+	categoryResult = req.get("categoryResult")
     parameters = categoryResult.get("parameters")
     if (location is None) or (item is None) or (units is None):
         return {}
