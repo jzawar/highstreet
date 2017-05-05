@@ -45,21 +45,21 @@ def processRequest(req):
     yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     result = urlopen(yql_url).read()
     data = json.loads(result)
-    res = makeWebhookResult(data)
+    res = makeWebhookResult(data,req)
     return res
 
 
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
+	city = parameters.get("geo-city")
     if city is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city +"')"
 
 
-def makeWebhookResult(data):
+def makeWebhookResult(data,req):
     query = data.get('query')
     if query is None:
         return {}
@@ -75,6 +75,8 @@ def makeWebhookResult(data):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
+	categoryResult = req.get("result")
+    parameters = categoryResult.get("parameters")
     if (location is None) or (item is None) or (units is None):
         return {}
 
@@ -84,9 +86,9 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    
 
+	Speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') + ". I suggest these  for "+parameters.get("Category")+". Are you making an air travel to " + location.get('city') +
     print("Response:")
     print(speech)
 
