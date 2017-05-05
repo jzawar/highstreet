@@ -46,7 +46,7 @@ def processRequest(req):
     yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     result = urlopen(yql_url).read()
     data = json.loads(result)
-    res = makeWebhookResult(data,req)
+    res = makeWebhookResult(data)
     return res
 
 
@@ -60,7 +60,7 @@ def makeYqlQuery(req):
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city +"')"
 
 
-def makeWebhookResult(data,req):
+def makeWebhookResult(data):
     query = data.get('query')
     if query is None:
         return {}
@@ -85,9 +85,9 @@ def makeWebhookResult(data,req):
 
     # print(json.dumps(item, indent=4))
 
-    airesult = req.get("result")
-    parameters = airesult.get("parameters")
-    speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') + #". I suggest these "+parameters.get("Category")+" for "+parameters.get("person")+". Are you making an air travel to " + location.get('city') +
+    #airesult = req.get("result")
+    #parameters = airesult.get("parameters")
+    speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') +
     print("Response:")
     print(speech)
 
