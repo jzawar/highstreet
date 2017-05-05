@@ -119,8 +119,8 @@ def makeWebhookResult(data, req):
     #print(speech)
 
     return {
-        "speech": returnedSpeech,
-        "displayText": returnedSpeech,
+        "speech": speech,
+        "displayText": speech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
