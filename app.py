@@ -11,7 +11,6 @@ from urllib.error import HTTPError
 import json
 import os
 
-
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -53,11 +52,11 @@ def processRequest(req):
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
-	city = parameters.get("geo-city")
+    city = parameters.get("geo-city")
     if city is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city +"')"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
 def makeWebhookResult(data):
@@ -76,7 +75,7 @@ def makeWebhookResult(data):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
-	if (location is None) or (item is None) or (units is None):
+    if (location is None) or (item is None) or (units is None):
         return {}
 
     condition = item.get('condition')
@@ -85,9 +84,9 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    #airesult = req.get("result")
-    #parameters = airesult.get("parameters")
-    speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') +
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+
     print("Response:")
     print(speech)
 
