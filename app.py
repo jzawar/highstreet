@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import re
 
 from flask import Flask
 from flask import request
@@ -34,6 +35,26 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+	
+def suggestDeodrant(condition, person, city):
+    print(person)
+    humidWeatherList = ['Cloudy','mostly cloudy (night)','mostly cloudy (day)','partly cloudy (night)','partlycloudy (day)','tornado','tropical storm','hurricane','severe thunderstorms','thunderstorms','mixed rain and snow','mixed rain and sleet','mixed snow and sleet','freezing drizzle','drizzle','freezing rain','Showers','snow flurries','light snow showers','blowing snow','snow','hail','sleet','mixed rain and hail','thundershowers','snow showers','isolated','thundershowers'];
+    hotWeatherList = ['dust','foggy','haze','smoky','blustery','windy','cold','clear (night)','sunny','fair (night)','fair (day)','hot','isolated thunderstorms','scattered thunderstorms','scattered thunderstorms','scattered showers','heavy snow','scattered snow showers','heavy snow','partly cloudy'];
+    if(condition in humidWeatherList):
+     print('humid')
+     men = 'Men'
+     if(person.lower()==men.lower()):
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
+     else:
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
+    else:
+     print('dry')
+     menv = 'Men'
+     if(person.lower()==menv.lower()):
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
+     else:
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
+    return condition
 
 def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
@@ -52,14 +73,14 @@ def processRequest(req):
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
-	city = parameters.get("geo-city")
+    city = parameters.get("geo-city")
     if city is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city +"')"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-def makeWebhookResult(data,req):
+def makeWebhookResult(data, req):
     query = data.get('query')
     if query is None:
         return {}
@@ -75,8 +96,6 @@ def makeWebhookResult(data,req):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
-	categoryResult = req.get("categoryResult")
-    parameters = categoryResult.get("parameters")
     if (location is None) or (item is None) or (units is None):
         return {}
 
@@ -86,15 +105,22 @@ def makeWebhookResult(data,req):
 
     # print(json.dumps(item, indent=4))
 
-    
-
-	Speech = "The weather in " + location.get('city') + " is currently " + condition.get('temp') + ". I suggest these  for "+parameters.get("Category")+". Are you making an air travel to " + location.get('city') +
-    print("Response:")
-    print(speech)
+    #speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+    #         ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+	
+    speech = "Hmmm.. It looks " + condition.get('text') + " in " + location.get('city')
+    airesult = req.get("result")
+    parameters = airesult.get("parameters")
+    person = parameters.get('Person')
+    city = parameters.get("geo-city")
+    returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
+    print(returnedSpeech)
+    #print("Response:")
+    #print(speech)
 
     return {
-        "speech": speech,
-        "displayText": speech,
+        "speech": returnedSpeech,
+        "displayText": returnedSpeech,
         # "data": data,
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
