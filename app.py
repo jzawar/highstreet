@@ -108,13 +108,13 @@ def makeWebhookResult(data, req):
     #speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
     #         ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
 	
-    speech = "Hmmm.. It looks " + condition.get('text') + " in " + location.get('city')
+    #speech = "Hmmm.. It looks " + condition.get('text') + " in " + location.get('city')
     airesult = req.get("result")
     parameters = airesult.get("parameters")
     person = parameters.get('Person')
     city = parameters.get("geo-city")
-    returnedSpeech = suggestDeodrant(condition.get('text'), person, city)
-    print(returnedSpeech)
+    speech = suggestDeodrant(condition.get('text'), person, city)
+    print(speech)
     #print("Response:")
     #print(speech)
 
