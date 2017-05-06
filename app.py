@@ -45,8 +45,14 @@ def processRequest(req):
     yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     result = urlopen(yql_url).read()
     data = json.loads(result)
-    res = makeWebhookResult(data,req)
-    return res
+    res = makeWebhookResult(data)
+	
+	result = req.get("result")
+    parameters = result.get("parameters")
+	person = parameters.get("person")
+	Category = parameters.get("Category")
+	
+    return ":"+res+":"+person+":"+Category
 
 
 def makeYqlQuery(req):
@@ -59,7 +65,7 @@ def makeYqlQuery(req):
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-def makeWebhookResult(data,req):
+def makeWebhookResult(data):
     query = data.get('query')
     if query is None:
         return {}
@@ -83,10 +89,7 @@ def makeWebhookResult(data,req):
         return {}
 
     # print(json.dumps(item, indent=4))
-	result = req.get("result")
-    parameters = result.get("parameters")
-	person = parameters.get("person")
-	Category = parameters.get("Category")
+	
 	
     speech = "The weather in " + location.get('city') + " is currently " + condition.get('text')
     print("Response:")
