@@ -32,7 +32,11 @@ def webhook():
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    return r
+	result = req.get("result")
+    parameters = result.get("parameters")
+	person = parameters.get("person")
+	Category = parameters.get("Category")
+    return ":"+r+":"+person+":"+Category
 
 
 def processRequest(req):
@@ -47,12 +51,7 @@ def processRequest(req):
     data = json.loads(result)
     res = makeWebhookResult(data)
 	
-	result = req.get("result")
-    parameters = result.get("parameters")
-	person = parameters.get("person")
-	Category = parameters.get("Category")
-	
-    return ":"+res+":"+person+":"+Category
+    return res
 
 
 def makeYqlQuery(req):
