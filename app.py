@@ -88,7 +88,7 @@ def makeWebhookResult(data,req):
 	person = parameters.get("person")
 	Category = parameters.get("Category")
 	
-    speech = "The weather in " + location.get('city') + " is currently " + condition.get('text')+" : "+person+" : "+Category
+    speech = "The weather in " + location.get('city') + " is currently " + condition.get('text')
     print("Response:")
     print(speech)
 
