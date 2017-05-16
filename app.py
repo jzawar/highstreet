@@ -51,21 +51,18 @@ def suggestDeodrant(condition, person, city):
     humidWeatherList = ['Cloudy','mostly cloudy (night)','mostly cloudy (day)','partly cloudy (night)','partlycloudy (day)','tornado','tropical storm','hurricane','severe thunderstorms','thunderstorms','mixed rain and snow','mixed rain and sleet','mixed snow and sleet','freezing drizzle','drizzle','freezing rain','Showers','snow flurries','light snow showers','blowing snow','snow','hail','sleet','mixed rain and hail','thundershowers','snow showers','isolated','thundershowers'];
     hotWeatherList = ['dust','foggy','haze','smoky','blustery','windy','cold','clear (night)','sunny','fair (night)','fair (day)','hot','isolated thunderstorms','scattered thunderstorms','scattered thunderstorms','scattered showers','heavy snow','scattered snow showers','heavy snow','partly cloudy'];
     if(condition in humidWeatherList):
-     print('humid')
-     men = 'Men'
-     if(person.lower()==men.lower()):
-          condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
+     if person == 'Men':
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
      else:
-          condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
     else:
-     print('dry')
-     men = 'Men'
-     if(person.lower()==menv.lower()):
-          condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
+     if person == 'Men':
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
      else:
-          condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
-          if currCity != city:
-		   condition = condition+' I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
+      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
+
+    if currCity != city:
+     condition = condition+' I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
     return condition
 
 def processRequest(req):
