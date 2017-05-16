@@ -54,12 +54,12 @@ def suggestDeodrant(condition, person, city):
      print('humid')
      men = 'Men'
      if(person.lower()==men.lower()):
-		if currCity == city:
+		if(currCity == city):
 		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
 		else:
 		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
      else:
-		if currCity == city:
+		if(currCity == city):
       condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
 		else:
 		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
@@ -67,12 +67,12 @@ def suggestDeodrant(condition, person, city):
      print('dry')
      menv = 'Men'
      if(person.lower()==menv.lower()):
-		if currCity == city:
+		if(currCity == city):
       condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
 		else:
 		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person+'. I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
      else:
-		if currCity == city:
+		if(currCity == city):
       condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
 	  else:
 	  condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person+'. I see you are currently in '+currCity+'. Are you making an air travel to '+city+'?'
