@@ -35,47 +35,47 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-	
+
 def suggestDeodrant(condition, person, city):
     print(person)
-	url = 'http://ipinfo.io/json'
-	res = urlopen(url)
-	dt = json.load(res)
-
-	IP=dt['ip']
-	org=dt['org']
-	currCity =dt['city']
-	country =dt['country']
-	region=dt['region']
-	
-	humidWeatherList = ['Cloudy','mostly cloudy (night)','mostly cloudy (day)','partly cloudy (night)','partlycloudy (day)','tornado','tropical storm','hurricane','severe thunderstorms','thunderstorms','mixed rain and snow','mixed rain and sleet','mixed snow and sleet','freezing drizzle','drizzle','freezing rain','Showers','snow flurries','light snow showers','blowing snow','snow','hail','sleet','mixed rain and hail','thundershowers','snow showers','isolated','thundershowers'];
+    url = 'http://ipinfo.io/json'
+    res = urlopen(url)
+    dt = json.load(res)
+    
+    IP=dt['ip']
+    org=dt['org']
+    currCity =dt['city']
+    country =dt['country']
+    region=dt['region']
+    
+    humidWeatherList = ['Cloudy','mostly cloudy (night)','mostly cloudy (day)','partly cloudy (night)','partlycloudy (day)','tornado','tropical storm','hurricane','severe thunderstorms','thunderstorms','mixed rain and snow','mixed rain and sleet','mixed snow and sleet','freezing drizzle','drizzle','freezing rain','Showers','snow flurries','light snow showers','blowing snow','snow','hail','sleet','mixed rain and hail','thundershowers','snow showers','isolated','thundershowers'];
     hotWeatherList = ['dust','foggy','haze','smoky','blustery','windy','cold','clear (night)','sunny','fair (night)','fair (day)','hot','isolated thunderstorms','scattered thunderstorms','scattered thunderstorms','scattered showers','heavy snow','scattered snow showers','heavy snow','partly cloudy'];
     if(condition in humidWeatherList):
      print('humid')
      men = 'Men'
      if(person.lower()==men.lower()):
-		if(currCity == city):
-		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
-		else:
-		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
+         if(currCity == city):
+             condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person
+        else:
+            condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Moist/c/580">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
      else:
-		if(currCity == city):
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
-		else:
-		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
+         if(currCity == city):
+             condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person
+         else:
+             condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Moist/c/395">Anti-Perspirant Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
     else:
      print('dry')
-     menv = 'Men'
+     men = 'Men'
      if(person.lower()==menv.lower()):
-		if(currCity == city):
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
-		else:
-		condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
+        if(currCity == city):
+            condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person
+        else:
+            condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Men-Perfumes/Dry/c/570">Perfumed Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
      else:
-		if(currCity == city):
-      condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
-	  else:
-	  condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
+        if(currCity == city):
+            condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person
+      else:
+          condition = 'Hmmm.. The weather in '+city+' looks '+condition+'. I suggest these <a href="/highstreetstorefront/highstreet/en/highstreet-Catalogue/Perfumes/Women-Perfumes/Dry/c/390">Perfumed Deodrants</a> for ' + person+'. I see you are currently in {1}. Are you making an air travel to '+city+'?'.format(org,currCity,region,IP)
     return condition
 
 def processRequest(req):
@@ -129,7 +129,7 @@ def makeWebhookResult(data, req):
 
     #speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
     #         ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-	
+    
     speech = "Hmmm.. It looks " + condition.get('text') + " in " + location.get('city')
     airesult = req.get("result")
     parameters = airesult.get("parameters")
